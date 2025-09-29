@@ -18,6 +18,26 @@
  */
 typedef struct bmp bmp_t;
 
+/**
+ * @typedef coordenada_t
+ * @brief Estructura para representar una coordenada (x, y).
+ */
+typedef struct {
+    int x;
+    int y;
+} coordenada_t;
+
+/**
+ * @typedef color_t
+ * @brief Estructura para representar un color RGB.
+ */
+typedef struct {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} color_t;
+
+
 // ============================================================================
 // FUNCIONES PÚBLICAS
 // ============================================================================
@@ -89,41 +109,35 @@ void bmp_destruir(bmp_t *bmp);
  * @brief Obtiene el color de un píxel específico de la imagen.
  *
  * @param bmp Puntero a la imagen.
- * @param x Coordenada X del píxel (columna).
- * @param y Coordenada Y del píxel (fila).
- * @param r Puntero para almacenar el componente rojo (0-255).
- * @param g Puntero para almacenar el componente verde (0-255).
- * @param b Puntero para almacenar el componente azul (0-255).
+ * @param coor Coordenada del píxel.
+ * @param color Puntero para almacenar el color.
  *
  * @pre El puntero bmp no debe ser NULL.
- * @pre Las coordenadas (x, y) deben estar dentro de los límites de la imagen.
- * @pre Los punteros r, g, y b no deben ser NULL.
+ * @pre Las coordenadas deben estar dentro de los límites de la imagen.
+ * @pre El puntero color no debe ser NULL.
  *
  * @returns true si se pudo obtener el color del píxel, false si las
  *          coordenadas están fuera de los límites de la imagen.
  */
-bool bmp_get_pixel(const bmp_t *bmp, int x, int y, unsigned char *r, unsigned char *g, unsigned char *b);
+bool bmp_get_pixel(const bmp_t *bmp, coordenada_t coor, color_t *color);
 
 /**
  * @brief Establece el color de un píxel específico de la imagen.
  *
  * @param bmp Puntero a la imagen.
- * @param x Coordenada X del píxel (columna).
- * @param y Coordenada Y del píxel (fila).
- * @param r Componente rojo del color (0-255).
- * @param g Componente verde del color (0-255).
- * @param b Componente azul del color (0-255).
+ * @param coor Coordenada del píxel.
+ * @param color Color a establecer.
  *
  * @pre El puntero bmp no debe ser NULL.
- * @pre Las coordenadas (x, y) deben estar dentro de los límites de la imagen.
+ * @pre Las coordenadas deben estar dentro de los límites de la imagen.
  *
  * @returns true si se pudo establecer el color del píxel, false si las
  *          coordenadas están fuera de los límites de la imagen.
  *
- * @post El píxel en las coordenadas (x, y) de la imagen se actualiza con el
+ * @post El píxel en las coordenadas de la imagen se actualiza con el
  *       nuevo color.
  */
-bool bmp_set_pixel(bmp_t *bmp, int x, int y, unsigned char r, unsigned char g, unsigned char b);
+bool bmp_set_pixel(bmp_t *bmp, coordenada_t coor, color_t color);
 
 /**
  * @brief Obtiene el ancho de una imagen BMP.

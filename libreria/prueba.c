@@ -55,7 +55,9 @@ void prueba_set_get_pixel() {
     const char *ruta = "pixel_test.bmp";
     bmp_t *bmp = bmp_crear(5, 5);
 
-    bmp_set_pixel(bmp, 2, 3, 255, 0, 0); // Píxel rojo en (2, 3)
+    coordenada_t coor = {2, 3};
+    color_t color_rojo = {255, 0, 0};
+    bmp_set_pixel(bmp, coor, color_rojo);
 
     bool guardado = bmp_guardar(bmp, ruta);
     if (!guardado) {
@@ -72,13 +74,13 @@ void prueba_set_get_pixel() {
         return;
     }
 
-    unsigned char r, g, b;
-    bool leido = bmp_get_pixel(bmp_leido, 2, 3, &r, &g, &b);
+    color_t color_leido;
+    bool leido = bmp_get_pixel(bmp_leido, coor, &color_leido);
 
-    if (leido && r == 255 && g == 0 && b == 0) {
+    if (leido && color_leido.r == 255 && color_leido.g == 0 && color_leido.b == 0) {
         printf("Get/Set Pixel: OK\n");
     } else {
-        printf("Get/Set Pixel: FAIL (r=%d, g=%d, b=%d)\n", r, g, b);
+        printf("Get/Set Pixel: FAIL (r=%d, g=%d, b=%d)\n", color_leido.r, color_leido.g, color_leido.b);
     }
 
     bmp_destruir(bmp);

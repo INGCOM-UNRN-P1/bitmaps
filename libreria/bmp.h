@@ -31,12 +31,6 @@ typedef struct {
     uint32_t biClrImportant;
 } BITMAPINFOHEADER;
 
-typedef struct {
-    unsigned char b;
-    unsigned char g;
-    unsigned char r;
-} RGB;
-
 #pragma pack(pop)
 
 #endif // BMP_H

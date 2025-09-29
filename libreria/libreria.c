@@ -11,13 +11,13 @@
 struct bmp {
     BITMAPFILEHEADER file_header;
     BITMAPINFOHEADER info_header;
-    RGB *pixel_data;
+    color_t *pixel_data;
 };
 
 static size_t calcular_padding(int ancho) {
     size_t padding = 0;
-    if ((ancho * sizeof(RGB)) % 4 != 0) {
-        padding = 4 - ((ancho * sizeof(RGB)) % 4);
+    if ((ancho * sizeof(color_t)) % 4 != 0) {
+        padding = 4 - ((ancho * sizeof(color_t)) % 4);
     }
     return padding;
 }
@@ -38,7 +38,7 @@ bmp_t *bmp_crear(int ancho, int alto) {
     }
 
     if (!error) {
-        size_t data_size = ancho * alto * sizeof(RGB);
+        size_t data_size = ancho * alto * sizeof(color_t);
         bmp->pixel_data = malloc(data_size);
         if (bmp->pixel_data == NULL) {
             free(bmp);
@@ -48,10 +48,10 @@ bmp_t *bmp_crear(int ancho, int alto) {
     }
 
     if (!error) {
-        memset(bmp->pixel_data, 0, ancho * alto * sizeof(RGB));
+        memset(bmp->pixel_data, 0, ancho * alto * sizeof(color_t));
 
         size_t padding = calcular_padding(ancho);
-        size_t image_size = (ancho * sizeof(RGB) + padding) * alto;
+        size_t image_size = (ancho * sizeof(color_t) + padding) * alto;
 
         bmp->file_header.bfType = BMP_MAGIC;
         bmp->file_header.bfSize = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + image_size;
@@ -109,7 +109,7 @@ bool bmp_guardar(const bmp_t *bmp, const char *ruta) {
         int alto = bmp->info_header.biHeight;
 
         for (int y = 0; y < alto; y++) {
-            if (fwrite(&bmp->pixel_data[y * ancho], sizeof(RGB), ancho, archivo) != (size_t)ancho) {
+            if (fwrite(&bmp->pixel_data[y * ancho], sizeof(color_t), ancho, archivo) != (size_t)ancho) {
                 exito = false;
                 break;
             }
@@ -177,7 +177,7 @@ bmp_t *bmp_abrir(const char *ruta) {
     }
 
     if (!error) {
-        size_t data_size = bmp->info_header.biWidth * bmp->info_header.biHeight * sizeof(RGB);
+        size_t data_size = bmp->info_header.biWidth * bmp->info_header.biHeight * sizeof(color_t);
         bmp->pixel_data = malloc(data_size);
         if (bmp->pixel_data == NULL) {
             error = true;
@@ -191,7 +191,7 @@ bmp_t *bmp_abrir(const char *ruta) {
         int alto = bmp->info_header.biHeight;
 
         for (int y = 0; y < alto; y++) {
-            if (fread(&bmp->pixel_data[y * ancho], sizeof(RGB), ancho, archivo) != (size_t)ancho) {
+            if (fread(&bmp->pixel_data[y * ancho], sizeof(color_t), ancho, archivo) != (size_t)ancho) {
                 error = true;
                 break;
             }
@@ -226,32 +226,26 @@ void bmp_destruir(bmp_t *bmp) {
     }
 }
 
-bool bmp_get_pixel(const bmp_t *bmp, int x, int y, unsigned char *r, unsigned char *g, unsigned char *b) {
+bool bmp_get_pixel(const bmp_t *bmp, coordenada_t coor, color_t *color) {
     bool exito = true;
-    if (bmp == NULL || x < 0 || x >= bmp->info_header.biWidth || y < 0 || y >= bmp->info_header.biHeight) {
+    if (bmp == NULL || color == NULL || coor.x < 0 || coor.x >= bmp->info_header.biWidth || coor.y < 0 || coor.y >= bmp->info_header.biHeight) {
         exito = false;
     }
 
     if (exito) {
-        RGB pixel = bmp->pixel_data[y * bmp->info_header.biWidth + x];
-        *r = pixel.r;
-        *g = pixel.g;
-        *b = pixel.b;
+        *color = bmp->pixel_data[coor.y * bmp->info_header.biWidth + coor.x];
     }
     return exito;
 }
 
-bool bmp_set_pixel(bmp_t *bmp, int x, int y, unsigned char r, unsigned char g, unsigned char b) {
+bool bmp_set_pixel(bmp_t *bmp, coordenada_t coor, color_t color) {
     bool exito = true;
-    if (bmp == NULL || x < 0 || x >= bmp->info_header.biWidth || y < 0 || y >= bmp->info_header.biHeight) {
+    if (bmp == NULL || coor.x < 0 || coor.x >= bmp->info_header.biWidth || coor.y < 0 || coor.y >= bmp->info_header.biHeight) {
         exito = false;
     }
 
     if (exito) {
-        RGB *pixel = &bmp->pixel_data[y * bmp->info_header.biWidth + x];
-        pixel->r = r;
-        pixel->g = g;
-        pixel->b = b;
+        bmp->pixel_data[coor.y * bmp->info_header.biWidth + coor.x] = color;
     }
     return exito;
 }
