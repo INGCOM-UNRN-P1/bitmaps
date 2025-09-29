@@ -1,6 +1,12 @@
-# Plantilla-TP
+# `libbitmap` - Creacion de archivos gráficos
 
-Plantilla simplificada para examenes.
+Esta librería facilita la creación de imágenes `.bmp` sin compresión que, terminan siendo,
+una matríz de pixeles. Pero, con todo el funcionamiento interno expuesto en el repositorio
+es posible ver e inspeccionar que pasa por adentro.
+
+> [!WARNING]  
+> Ojo que las imágenes no tienen compresión. Es muy (pero muy) facil crear un archivo supermasivo.
+> Para que tengan una idea, 1920x1080 es mas o menos 6,2Mb
 
 ## Objetivos del Makefile
 
@@ -14,7 +20,15 @@ Plantilla simplificada para examenes.
 Recuerden no enviar al repositorio los compilados (`.exe`) e intermedios (`.o`/`.a`), para ello usen `make clean` en la
 raíz del proyecto.
 
-## Manual de la Librería BMP
+## Ideas
+
+Sobre esta libreria, que expone únicamente la imagen de a pixel, se puede construir de todo.
+Mostrar texto, tomar 'sprites' de un archivo, dibujar, y, eventualmente, generar imagenes con
+algun tipo de compresión.
+
+Es solo el comienzo :-D
+
+## Manual de `libbitmap` (BMP)
 
 Esta librería proporciona funcionalidades para la creación, apertura, manipulación y guardado de imágenes BMP sin compresión (formato de 24 bits por píxel).
 
