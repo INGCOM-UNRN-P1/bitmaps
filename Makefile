@@ -1,7 +1,7 @@
 #### Esta primera parte es tecnicamente configurable, pero no se recomienda.
 
 # Nombres de las librerías (sin prefijo 'lib' y sin extensión '.a')
-LIB_NAME = libreria
+LIB_NAME = bitmap
 
 # Directorios de los programas
 PROG_DIRS = ejercicio
@@ -36,7 +36,7 @@ run: $(PROG_DIRS)
 .PHONY: librerias
 librerias: 
 	@echo "Compilando librerías..."
-	$(MAKE) -C libreria
+	$(MAKE) -C bitmap
 
 
 # Regla para compilar cada programa
@@ -48,7 +48,7 @@ $(PROG_DIRS): librerias
 .PHONY: clean
 clean:
 	@echo "Limpiando todos los programas y libreria..."
-	$(MAKE) -C libreria clean
+	$(MAKE) -C bitmap clean
 	$(MAKE) -C ejercicio clean
 
 
@@ -57,7 +57,7 @@ clean:
 test: 
 	@echo "Ejecutando pruebas..."
 	@echo "Tests Libreria"
-	$(MAKE) -C libreria test
+	$(MAKE) -C bitmap test
 	@echo "Tests Ejercicios"
 	$(MAKE) -C ejercicio test
 	$(foreach prog_dir, $(PROG_DIRS), $(MAKE) -C $(prog_dir) test;)
