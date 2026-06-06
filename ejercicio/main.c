@@ -1,4 +1,4 @@
-#include "../libreria/libreria.h"
+#include "../bitmap/libreria.h"
 #include <stdio.h>
 
 /**

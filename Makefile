@@ -4,7 +4,7 @@
 LIB_NAME = bitmap
 
 # Directorios de los programas
-PROG_DIRS = ejercicio
+PROG_DIRS = ejercicio demo
 
 #### A partir de acá el es la parte mágica.
 
