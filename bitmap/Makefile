@@ -8,7 +8,7 @@ SRCS = libreria.c
 HDRS = libreria.h
 
 # Objetivos
-LIBRARY_NAME = liblibreria.a
+LIBRARY_NAME = libbitmap.a
 PROG_TARGET = main_bin
 
 # Archivos para tests

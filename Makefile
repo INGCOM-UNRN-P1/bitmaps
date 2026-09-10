@@ -49,7 +49,7 @@ $(PROG_DIRS): librerias
 clean:
 	@echo "Limpiando todos los programas y libreria..."
 	$(MAKE) -C bitmap clean
-	$(MAKE) -C ejercicio clean
+	$(foreach prog_dir, $(PROG_DIRS), $(MAKE) -C $(prog_dir) clean;)
 
 
 # Ejecutar pruebas para un programa específico (ejemplo: ejercicio2)
@@ -59,6 +59,5 @@ test:
 	@echo "Tests Libreria"
 	$(MAKE) -C bitmap test
 	@echo "Tests Ejercicios"
-	$(MAKE) -C ejercicio test
 	$(foreach prog_dir, $(PROG_DIRS), $(MAKE) -C $(prog_dir) test;)
 
