@@ -56,8 +56,10 @@ clean:
 .PHONY: test
 test: 
 	@echo "Ejecutando pruebas..."
-	@echo "Tests Libreria"
+	@echo "Tests Libreria (Básicos)"
 	$(MAKE) -C bitmap test
+	@echo "Tests Libreria (Avanzados)"
+	$(MAKE) -C bitmap test-avanzado
 	@echo "Tests Ejercicios"
 	$(foreach prog_dir, $(PROG_DIRS), $(MAKE) -C $(prog_dir) test;)
 
