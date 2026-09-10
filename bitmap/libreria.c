@@ -8,6 +8,27 @@
 #define BITS_PER_PIXEL 24
 #define COMPRESSION_BI_RGB 0
 
+// ============================================================================
+// PALETA DE COLORES PREDEFINIDA
+// ============================================================================
+
+const color_t BMP_COLOR_NEGRO = {0, 0, 0};
+const color_t BMP_COLOR_BLANCO = {255, 255, 255};
+const color_t BMP_COLOR_ROJO = {255, 0, 0};
+const color_t BMP_COLOR_VERDE = {0, 255, 0};
+const color_t BMP_COLOR_AZUL = {0, 0, 255};
+const color_t BMP_COLOR_AMARILLO = {255, 255, 0};
+const color_t BMP_COLOR_MAGENTA = {255, 0, 255};
+const color_t BMP_COLOR_CIAN = {0, 255, 255};
+const color_t BMP_COLOR_GRIS_CLARO = {192, 192, 192};
+const color_t BMP_COLOR_GRIS_OSCURO = {128, 128, 128};
+const color_t BMP_COLOR_NARANJA = {255, 165, 0};
+const color_t BMP_COLOR_PURPURA = {128, 0, 128};
+const color_t BMP_COLOR_MARRON = {165, 42, 42};
+const color_t BMP_COLOR_ROSA = {255, 192, 203};
+const color_t BMP_COLOR_LIMA = {50, 205, 50};
+const color_t BMP_COLOR_TURQUESA = {64, 224, 208};
+
 struct bmp {
     BITMAPFILEHEADER file_header;
     BITMAPINFOHEADER info_header;
@@ -262,4 +283,13 @@ int bmp_get_alto(const bmp_t *bmp) {
         return 0;
     }
     return bmp->info_header.biHeight;
+}
+
+color_t bmp_crear_color(unsigned char r, unsigned char g, unsigned char b) {
+    color_t color = {r, g, b};
+    return color;
+}
+
+bool bmp_colores_iguales(color_t color1, color_t color2) {
+    return (color1.r == color2.r) && (color1.g == color2.g) && (color1.b == color2.b);
 }

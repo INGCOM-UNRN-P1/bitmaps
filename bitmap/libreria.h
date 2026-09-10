@@ -39,6 +39,54 @@ typedef struct {
 
 
 // ============================================================================
+// PALETA DE COLORES PREDEFINIDA
+// ============================================================================
+
+/**
+ * @brief Colores predefinidos para uso común.
+ */
+extern const color_t BMP_COLOR_NEGRO;
+extern const color_t BMP_COLOR_BLANCO;
+extern const color_t BMP_COLOR_ROJO;
+extern const color_t BMP_COLOR_VERDE;
+extern const color_t BMP_COLOR_AZUL;
+extern const color_t BMP_COLOR_AMARILLO;
+extern const color_t BMP_COLOR_MAGENTA;
+extern const color_t BMP_COLOR_CIAN;
+extern const color_t BMP_COLOR_GRIS_CLARO;
+extern const color_t BMP_COLOR_GRIS_OSCURO;
+extern const color_t BMP_COLOR_NARANJA;
+extern const color_t BMP_COLOR_PURPURA;
+extern const color_t BMP_COLOR_MARRON;
+extern const color_t BMP_COLOR_ROSA;
+extern const color_t BMP_COLOR_LIMA;
+extern const color_t BMP_COLOR_TURQUESA;
+
+/**
+ * @brief Crea un color RGB con los componentes especificados.
+ *
+ * @param r Componente rojo (0-255).
+ * @param g Componente verde (0-255).
+ * @param b Componente azul (0-255).
+ *
+ * @returns Una estructura color_t con los componentes especificados.
+ *
+ * @post El color retornado tiene los valores RGB especificados.
+ */
+color_t bmp_crear_color(unsigned char r, unsigned char g, unsigned char b);
+
+/**
+ * @brief Compara dos colores para determinar si son iguales.
+ *
+ * @param color1 El primer color a comparar.
+ * @param color2 El segundo color a comparar.
+ *
+ * @returns true si los colores son iguales, false en caso contrario.
+ */
+bool bmp_colores_iguales(color_t color1, color_t color2);
+
+
+// ============================================================================
 // FUNCIONES PÚBLICAS
 // ============================================================================
 
