@@ -35,6 +35,16 @@
 *.i*86
 *.x86_64
 *.hex
+programa
+test_bin
+test_avanzado_bin
+ejemplo_paleta
+main_bin
+
+# Generated images
+*.bmp
+!demo/gradiente.bmp
+*.png
 
 # Debug files
 *.dSYM/
