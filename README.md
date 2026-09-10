@@ -34,17 +34,17 @@ Esta librería proporciona funcionalidades para la creación, apertura, manipula
 
 ### Compilación y Enlazado
 
-Para compilar la librería, navegue al directorio `libreria` y ejecute `make`:
+Para compilar la librería, navegue al directorio `bitmap` y ejecute `make`:
 
 ```bash
-cd libreria
+cd bitmap
 make
 ```
 
-Esto generará el archivo de librería estática `liblibreria.a`. Para enlazar su proyecto con esta librería, debe incluir el archivo de cabecera `libreria.h` y especificar la librería en su comando de compilación. Por ejemplo:
+Esto generará el archivo de librería estática `libbitmap.a`. Para enlazar su proyecto con esta librería, debe incluir el archivo de cabecera `libreria.h` y especificar la librería en su comando de compilación. Por ejemplo:
 
 ```bash
-gcc -o mi_programa mi_programa.c -L./libreria -llibreria
+gcc -o mi_programa mi_programa.c -L./bitmap -lbitmap
 ```
 
 ### Tipos de Datos
@@ -153,6 +153,100 @@ Obtiene el alto de una imagen BMP.
 *   `bmp`: Puntero a la imagen.
 *   **Retorna**: El alto de la imagen en píxeles.
 
-### Ejemplo de Uso
+### Funciones de Colores
+
+#### `bmp_crear_color`
+
+```c
+color_t bmp_crear_color(unsigned char r, unsigned char g, unsigned char b);
+```
+Crea un color RGB con los componentes especificados.
+*   `r`: Componente rojo (0-255).
+*   `g`: Componente verde (0-255).
+*   `b`: Componente azul (0-255).
+*   **Retorna**: Una estructura `color_t` con los componentes especificados.
+
+#### `bmp_colores_iguales`
+
+```c
+bool bmp_colores_iguales(color_t color1, color_t color2);
+```
+Compara dos colores para determinar si son iguales.
+*   `color1`: El primer color a comparar.
+*   `color2`: El segundo color a comparar.
+*   **Retorna**: `true` si los colores son iguales, `false` en caso contrario.
+
+### Paleta de Colores Predefinida
+
+La librería incluye una paleta de colores predefinidos para facilitar el desarrollo:
+
+*   `BMP_COLOR_NEGRO` - Negro (0, 0, 0)
+*   `BMP_COLOR_BLANCO` - Blanco (255, 255, 255)
+*   `BMP_COLOR_ROJO` - Rojo (255, 0, 0)
+*   `BMP_COLOR_VERDE` - Verde (0, 255, 0)
+*   `BMP_COLOR_AZUL` - Azul (0, 0, 255)
+*   `BMP_COLOR_AMARILLO` - Amarillo (255, 255, 0)
+*   `BMP_COLOR_MAGENTA` - Magenta (255, 0, 255)
+*   `BMP_COLOR_CIAN` - Cian (0, 255, 255)
+*   `BMP_COLOR_GRIS_CLARO` - Gris claro (192, 192, 192)
+*   `BMP_COLOR_GRIS_OSCURO` - Gris oscuro (128, 128, 128)
+*   `BMP_COLOR_NARANJA` - Naranja (255, 165, 0)
+*   `BMP_COLOR_PURPURA` - Púrpura (128, 0, 128)
+*   `BMP_COLOR_MARRON` - Marrón (165, 42, 42)
+*   `BMP_COLOR_ROSA` - Rosa (255, 192, 203)
+*   `BMP_COLOR_LIMA` - Lima (50, 205, 50)
+*   `BMP_COLOR_TURQUESA` - Turquesa (64, 224, 208)
+
+### Ejemplos de Uso
+
+#### Ejemplo Básico con Gradiente
 
 Consulte el archivo `ejercicio/main.c` para un ejemplo de cómo utilizar la librería para crear una imagen con un gradiente de color.
+
+#### Ejemplo de Paleta de Colores
+
+```c
+#include "bitmap/libreria.h"
+
+int main() {
+    bmp_t *bmp = bmp_crear(100, 100);
+    
+    // Usar colores predefinidos
+    coordenada_t centro = {50, 50};
+    bmp_set_pixel(bmp, centro, BMP_COLOR_ROJO);
+    
+    // Crear color personalizado
+    color_t mi_color = bmp_crear_color(128, 64, 192);
+    coordenada_t esquina = {0, 0};
+    bmp_set_pixel(bmp, esquina, mi_color);
+    
+    // Comparar colores
+    if (bmp_colores_iguales(BMP_COLOR_ROJO, BMP_COLOR_AZUL)) {
+        printf("Los colores son iguales\n");
+    } else {
+        printf("Los colores son diferentes\n");
+    }
+    
+    bmp_guardar(bmp, "mi_imagen.bmp");
+    bmp_destruir(bmp);
+    
+    return 0;
+}
+```
+
+Para ver más ejemplos, ejecute:
+```bash
+make -C ejercicio run-paleta
+```
+
+### Pruebas
+
+La librería incluye un conjunto completo de pruebas que cubren:
+
+*   **Pruebas básicas**: Funcionalidad core (crear, guardar, abrir, destruir)
+*   **Pruebas avanzadas**: Casos límite, manejo de errores, persistencia, gestión de memoria, y funcionalidades de color
+
+Para ejecutar todas las pruebas:
+```bash
+make test
+```
