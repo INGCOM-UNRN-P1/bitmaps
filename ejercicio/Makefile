@@ -24,17 +24,26 @@ PROG_TARGET = programa
 PROG_SRCS = main.c
 PROG_OBJS = $(PROG_SRCS:.c=.o)
 
+# Objetivo del ejemplo de paleta
+PALETA_TARGET = ejemplo_paleta
+PALETA_SRCS = ejemplo_paleta.c
+PALETA_OBJS = $(PALETA_SRCS:.c=.o)
+
 # Objetivo de los tests
 TEST_TARGET = test_bin
 TEST_SRCS = prueba.c
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 
-# Compilar ambos: programa y tests
-all: $(PROG_TARGET) $(TEST_TARGET)
+# Compilar todos los programas
+all: $(PROG_TARGET) $(PALETA_TARGET) $(TEST_TARGET)
 
 # Compilar el programa principal
 $(PROG_TARGET): $(PROG_OBJS) $(SRCS:.c=.o)
 	$(CC) $(CFLAGS) -o $@ $(PROG_OBJS) $(SRCS:.c=.o) $(LIBRARY_DIRS) $(LIBRARY)
+
+# Compilar el ejemplo de paleta
+$(PALETA_TARGET): $(PALETA_OBJS) $(SRCS:.c=.o)
+	$(CC) $(CFLAGS) -o $@ $(PALETA_OBJS) $(SRCS:.c=.o) $(LIBRARY_DIRS) $(LIBRARY)
 
 # Compilar el ejecutable de pruebas
 $(TEST_TARGET): $(TEST_OBJS) $(SRCS:.c=.o)
@@ -51,6 +60,12 @@ run: $(PROG_TARGET)
 	@echo "Ejecutando el programa"
 	./$(PROG_TARGET)
 
+# Ejecutar el ejemplo de paleta
+.PHONY: run-paleta
+run-paleta: $(PALETA_TARGET)
+	@echo "Ejecutando ejemplo de paleta de colores"
+	./$(PALETA_TARGET)
+
 # Ejecutar las pruebas
 .PHONY: test
 test: $(TEST_TARGET)
@@ -61,4 +76,4 @@ test: $(TEST_TARGET)
 .PHONY: clean
 clean:
 	@echo "Limpiando archivos objeto y ejecutables..."
-	rm -f $(PROG_OBJS) $(TEST_OBJS) $(SRCS:.c=.o) $(PROG_TARGET) $(TEST_TARGET)
+	rm -f $(PROG_OBJS) $(PALETA_OBJS) $(TEST_OBJS) $(SRCS:.c=.o) $(PROG_TARGET) $(PALETA_TARGET) $(TEST_TARGET)
