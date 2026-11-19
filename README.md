@@ -250,3 +250,7 @@ Para ejecutar todas las pruebas:
 ```bash
 make test
 ```
+
+## Contacto
+
+Martín René Vilugrón - mrvilugron@unrn.edu.ar - Ingeniería en Computación UNRN Andina
